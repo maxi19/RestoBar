@@ -20,7 +20,9 @@
           <th><b>Postre</b></th> 
           <th><b>Bebida</b></th>
           <th><b>Precio</b></th>
+          <th><b>Cantidad</b></th>
          </tr> 
+
 
  <%ArrayList<Menu> menus = (ArrayList<Menu>)request.getAttribute("menus"); 
         for(Menu menu :menus){ %> 
@@ -31,10 +33,17 @@
 		<td><%=menu.getBebida()%></td>
 		<td><%=menu.getPrecio()%></td>
 		
+	
+		
 		<tr>
 
 <% }%>
 </table>
 
+<div>
+<center>
+<button onclick="alerta()">confirmar</button>
+</center>
+</div>
 </body>
 </html>
