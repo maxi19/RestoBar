@@ -10,6 +10,19 @@ public class Mesa {
 
 	private int numeroMesa;
 	
+	private int cantidadComensales;
+	
+	public Mesa() {
+		this.cantidadComensales=0;
+	}
+	public int getCantidadComensales() {
+		return cantidadComensales;
+	}
+
+	public void setCantidadComensales(int cantidadComensales) {
+		this.cantidadComensales = cantidadComensales;
+	}
+
 	public int getNumeroMesa() {
 		return numeroMesa;
 	}

@@ -11,13 +11,17 @@ public class ServicioMenu {
 
 	private List<Menu> menus = new ArrayList<>();
 	
+	static {
+		
+	}
+	
 	public ServicioMenu() {
 		Menu menu = new Menu();
 		menu.setTitulo("Menu ejecutivo");
 		menu.setPlato("tallarines con tuco");
 		menu.setPostre("gelatina");
 		menu.setBebida("cerveza tirada");
-		menu.setTitulo("200");
+		menu.setPrecio(200);
 		menus.add(menu);
 		
 		Menu menu2 = new Menu();
@@ -25,7 +29,8 @@ public class ServicioMenu {
 		menu2.setPlato("sopa mani");
 		menu2.setPostre("helado de canela");
 		menu2.setBebida("chicha");
-		menu2.setTitulo("100");
+		menu2.setPrecio(100);
+		
 		menus.add(menu2);
 		
 	}
