@@ -11,6 +11,7 @@ public class Mesa {
 	private int numeroMesa;
 	
 	private int cantidadComensales;
+
 	
 	public Mesa() {
 		this.cantidadComensales=0;

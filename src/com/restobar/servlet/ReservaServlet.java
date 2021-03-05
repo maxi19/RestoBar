@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.restobar.dominio.Mesa;
 import com.restobar.excepciones.NotEncontroException;
@@ -28,20 +29,20 @@ public class ReservaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	Mesa mesa = null;
-		 RequestDispatcher dispatcher //
-         = this.getServletContext().getRequestDispatcher("/WEB-INF/views/mesa.jsp");
-		
+		 RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/cantidad.jsp");
+		 HttpSession misession= req.getSession(true);		
+		 
 		 if (req.getParameter("idMesa")!= null) {
 			
 			 int numeroMesa = 0;
 			 int cantidad =0;
 			try {
 				numeroMesa = Integer.parseInt(req.getParameter("idMesa"));
-				cantidad = Integer.parseInt(req.getParameter("cantidad"));
+				//cantidad = Integer.parseInt(req.getParameter("cantidad"));
 				
 				mesa = servicioMesa.dameMesa(numeroMesa);
-				mesa.setCantidadComensales(cantidad);
-				
+				req.setAttribute("mesa", mesa);
+				misession.setAttribute("miMesaElegida", mesa);
 			} catch (NotEncontroException e) {
 				dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/error.jsp");
 				req.setAttribute("titulo", "ERROR DE SISTEMA");
@@ -53,23 +54,13 @@ public class ReservaServlet extends HttpServlet {
 				req.setAttribute("mensaje", "Error de sistema interno. intente mas tarde");
 				dispatcher.forward(req, resp);
 			}
+			
+				 dispatcher.forward(req, resp);	
+			
 		}
-		 if (mesa !=null ) {
-			 System.out.println("se envia " + mesa.toString());
-			 req.setAttribute("mesaInfo", mesa);
-			 req.setAttribute("menus", servicioMenu.dameTodos());
-			 dispatcher.forward(req, resp);	
-		}
+	
 		 
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		System.out.println("por post");
-		super.doPost(req, resp);
-	}
-
 	
 	
 	

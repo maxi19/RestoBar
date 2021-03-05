@@ -15,7 +15,6 @@ int cantidad = 10;
 
 %>
 
-<form name= "formulario"> 
 
 <table border ="1" width="500" align="center" > 
          <tr bgcolor="00FF7F"> 
@@ -28,25 +27,17 @@ int cantidad = 10;
 
  <%ArrayList<Mesa> mesas = (ArrayList<Mesa>)request.getAttribute("mesas"); 
         for(Mesa mesa :mesas){ %> 
+ 		
  		<tr>
  		<td><%=mesa.getNombre()%></td>
 		<td><%=mesa.getEstado()%></td>
 		<td><%=mesa.getDescripcion()%></td>
-		<td>
-		 <select name="cantidad" id="cantidad">
-		  <option value="1">1</option>
-		  <option value="2">2</option>
-		  <option value="3">3</option>
-		  <option value="4">4</option>
-		</select>
-		  </td>
-		<td><a href="${pageContext.request.contextPath}/reserva?idMesa=<%=mesa.getNumeroMesa()%>&cantidad=3">reservar</a></td>
+		<td><a href="${pageContext.request.contextPath}/reserva?idMesa=<%=mesa.getNumeroMesa()%>">reservar</a></td>
 		</tr>
 
 <% }%>
 </table>
 
-</form>
 
 </body>
 </html>

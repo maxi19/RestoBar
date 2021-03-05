@@ -22,6 +22,7 @@ public class ServicioMenu {
 		menu.setPostre("gelatina");
 		menu.setBebida("cerveza tirada");
 		menu.setPrecio(200);
+		menu.setId(1);
 		menus.add(menu);
 		
 		Menu menu2 = new Menu();
@@ -30,7 +31,7 @@ public class ServicioMenu {
 		menu2.setPostre("helado de canela");
 		menu2.setBebida("chicha");
 		menu2.setPrecio(100);
-		
+		menu2.setId(2);
 		menus.add(menu2);
 		
 	}
