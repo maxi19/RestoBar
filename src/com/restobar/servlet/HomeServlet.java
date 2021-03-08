@@ -28,19 +28,9 @@ public class HomeServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  RequestDispatcher dispatcher //
-          = this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp");
+		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp");
 		  req.setAttribute("mesas", servicioMesa.dameTodos());
 		  dispatcher.forward(req, resp);
-
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
-
-	
 	
 }

@@ -12,14 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import com.restobar.dominio.Mesa;
 import com.restobar.excepciones.NotEncontroException;
-import com.restobar.servicio.ServicioMenu;
 import com.restobar.servicio.ServicioMesa;
 
 @WebServlet(urlPatterns = { "/reserva"})
 public class ReservaServlet extends HttpServlet {
 
 	private ServicioMesa servicioMesa = new ServicioMesa();
-	private ServicioMenu servicioMenu = new ServicioMenu();
 	
 	/**
 	 * 
@@ -32,14 +30,11 @@ public class ReservaServlet extends HttpServlet {
 		 RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/cantidad.jsp");
 		 HttpSession misession= req.getSession(true);		
 		 
-		 if (req.getParameter("idMesa")!= null) {
-			
+		 if (req.getParameter("idMesa")!= null) {	
 			 int numeroMesa = 0;
-			 int cantidad =0;
+		
 			try {
-				numeroMesa = Integer.parseInt(req.getParameter("idMesa"));
-				
-				
+				numeroMesa = Integer.parseInt(req.getParameter("idMesa"));		
 				mesa = servicioMesa.dameMesa(numeroMesa);
 				req.setAttribute("mesa", mesa);
 
@@ -56,14 +51,9 @@ public class ReservaServlet extends HttpServlet {
 				req.setAttribute("mensaje", "Error de sistema interno. intente mas tarde");
 				dispatcher.forward(req, resp);
 			}
-			
 				 dispatcher.forward(req, resp);	
-			
 		}
-	
-		 
+
 	}
-	
-	
 	
 }

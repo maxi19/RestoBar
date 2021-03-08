@@ -26,12 +26,13 @@ int cantidad = 10;
          </tr> 
 
  <%ArrayList<Mesa> mesas = (ArrayList<Mesa>)request.getAttribute("mesas"); 
-        for(Mesa mesa :mesas){ %> 
+        for(Mesa mesa:mesas){ %> 
  		
  		<tr>
  		<td><%=mesa.getNombre()%></td>
 		<td><%=mesa.getEstado()%></td>
 		<td><%=mesa.getDescripcion()%></td>
+		<td><%=mesa.getCantidadComensales()%></td>
 		<td><a href="${pageContext.request.contextPath}/reserva?idMesa=<%=mesa.getNumeroMesa()%>">reservar</a></td>
 		</tr>
 

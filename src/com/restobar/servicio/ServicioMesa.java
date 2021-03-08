@@ -22,15 +22,33 @@ public class ServicioMesa {
 	
 	public Mesa dameMesa(int idMesa) throws NotEncontroException {
 		boolean encontroMesa= false;
-		
-		for (Mesa mesa : mesas) {
-			if (idMesa == mesa.getNumeroMesa()) {
-				System.out.println(mesa.toString());
-				encontroMesa = true;
-				return mesa;
+		Connection con =conexion.dameConnection();
+		java.sql.Statement stmt;
+		String query = "SELECT * FROM Mesa where Numero = " + String.valueOf(idMesa);
+		Mesa mesa = null;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				mesa = new Mesa();
+				mesa.setCantidadComensales(Integer.parseInt(rs.getString("CANTIDAD_COMENSALES")));
+				mesa.setDescripcion(rs.getString("DESCRIPCION"));
+				if ( "1".equals(rs.getString("ESTADO"))  ) {
+					mesa.setEstado(true);
+				}else {
+					mesa.setEstado(false);
+				}
+				mesa.setNumeroMesa(Integer.parseInt(rs.getString("NUMERO")));
+				mesa.setNombre(rs.getString("NOMBRE"));
 			}
+			stmt.close();
+			con.close();
+			return mesa;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 		if (encontroMesa == false) {
 			throw new NotEncontroException("no encontro la mesa solicitada");
 		}
@@ -39,6 +57,7 @@ public class ServicioMesa {
 	
 	
 	public List<Mesa> dameTodos(){
+		mesas.clear();
 		Connection con =conexion.dameConnection();
 		try {
 			PreparedStatement stmt = con.prepareStatement("Select * from Mesa");
@@ -56,6 +75,8 @@ public class ServicioMesa {
 				mesa.setNombre(rs.getString("NOMBRE"));
 				mesas.add(mesa);
 			}
+			con.close();
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,6 +93,7 @@ public class ServicioMesa {
 				return true;
 			}
 			stmt.close();
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
