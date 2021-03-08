@@ -38,7 +38,7 @@ public class ServicioMenu {
 	
 	
 	
-	public Menu dameMesa(int idMenu) throws NotEncontroException {
+	public Menu dameMenu(int idMenu) throws NotEncontroException {
 		boolean encontro= false;
 		
 		for (Menu menu : menus) {

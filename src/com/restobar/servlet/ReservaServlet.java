@@ -38,11 +38,13 @@ public class ReservaServlet extends HttpServlet {
 			 int cantidad =0;
 			try {
 				numeroMesa = Integer.parseInt(req.getParameter("idMesa"));
-				//cantidad = Integer.parseInt(req.getParameter("cantidad"));
+				
 				
 				mesa = servicioMesa.dameMesa(numeroMesa);
 				req.setAttribute("mesa", mesa);
+
 				misession.setAttribute("miMesaElegida", mesa);
+				
 			} catch (NotEncontroException e) {
 				dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/error.jsp");
 				req.setAttribute("titulo", "ERROR DE SISTEMA");

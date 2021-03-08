@@ -1,5 +1,7 @@
 package com.restobar.dominio;
 
+import java.util.List;
+
 public class Mesa {
 
 	private String nombre;
@@ -12,6 +14,7 @@ public class Mesa {
 	
 	private int cantidadComensales;
 
+	private List<Menu> menus ;
 	
 	public Mesa() {
 		this.cantidadComensales=0;
@@ -56,6 +59,13 @@ public class Mesa {
 		this.descripcion = descripcion;
 	}
 
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	
 	@Override
 	public String toString() {
 		return "Mesa [nombre=" + nombre + ", estado=" + estado + ", descripcion=" + descripcion + ", numeroMesa="
