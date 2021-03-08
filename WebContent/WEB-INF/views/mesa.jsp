@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@page import="com.restobar.dominio.Mesa"%> 
@@ -11,28 +12,28 @@
 </head>
 <body>
  <%Mesa mesa =(Mesa)request.getAttribute("mesaInfo"); %>  
-<h3> <%=mesa.getNombre()%> </h3>
+ <%int cantidadComensales = (Integer) request.getAttribute("cantidadComensales"); %>  
 
-<form action="${pageContext.request.contextPath}/reserva?" method="post">
-
-
-<table border ="1" width="500" align="center" > 
-         <tr bgcolor="00FF7F"> 
-          <th><b>Nombre de menu</b></th> 
+<% for(int i = 1 ; i <= cantidadComensales; i++){ %>
+		<h3>
+		comensal:<%=i%>
+		</h3>
+		<table border ="1" width="500" align="center" > 
+        <tr bgcolor="00FF7F"> 
+         <th><b>Nombre de menu</b></th> 
 		 <th><b>Plato principal</b></th> 
-          <th><b>Postre</b></th> 
-          <th><b>Bebida</b></th>
-          <th><b>Precio</b></th>
-          <th><b>cantidad</b></th>
-         
-         </tr> 
+         <th><b>Postre</b></th> 
+         <th><b>Bebida</b></th>
+         <th><b>Precio</b></th>
+         <th><b>cantidad</b></th>
+        </tr> 
 
- <%ArrayList<Menu> menus = (ArrayList<Menu>)request.getAttribute("menus"); 
-        for(Menu menu :menus){ %> 
- 		<tr>
- 		<input type="hidden" name="id" value = "<%=menu.getId()%>">
- 		<td><%=menu.getTitulo()%></td>
- 		<td><%=menu.getPlato()%></td>
+<%ArrayList<Menu> menus = (ArrayList<Menu>)request.getAttribute("menus"); 
+       for(Menu menu :menus){ %> 
+		<tr>
+		<input type="hidden" name="id" value = "<%=menu.getId()%>">
+		<td><%=menu.getTitulo()%></td>
+		<td><%=menu.getPlato()%></td>
 		<td><%=menu.getPostre()%></td>
 		<td><%=menu.getBebida()%></td>
 		<td><%=menu.getPrecio()%></td>
@@ -40,19 +41,10 @@
 		<tr>
 		<input type="submit" value="Solicitar pedido">
 
-<% }
-
-%>
+<%} %>
 </table>
-
-</form>
-
+<%}%>
 
 
-<div>
-<center>
-<button onclick="alerta()">confirmar</button>
-</center>
-</div>
 </body>
 </html>

@@ -32,9 +32,10 @@ public class PedidoServlet extends HttpServlet {
 		Mesa miMesaElegida= (Mesa) misession.getAttribute("miMesaElegida");
 		 
 		String  cantidad = req.getParameter("cantidad");
+		int cantidadComensales = Integer.parseInt(cantidad);
+		req.setAttribute("cantidadComensales", cantidadComensales);		
 		
-				
-		 if (miMesaElegida !=null ) {
+		if (miMesaElegida !=null ) {
 			 System.out.println("se envia " + miMesaElegida.toString());
 			 req.setAttribute("mesaInfo", miMesaElegida);
 			 req.setAttribute("menus", servicioMenu.dameTodos());
