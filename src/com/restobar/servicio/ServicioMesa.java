@@ -9,15 +9,18 @@ import java.util.List;
 
 import com.restobar.dominio.Mesa;
 import com.restobar.dominio.conexion.Conexion;
+import com.restobar.dominio.conexion.DataBaseHelper;
 import com.restobar.excepciones.NotEncontroException;
+
+import sun.awt.image.DataBufferNative;
 
 public class ServicioMesa {
 
 	private List<Mesa> mesas = new ArrayList<>();
-	private Conexion conexion ; 
+	private Conexion conexion  = Conexion.getInstance(); 
 	
 	public ServicioMesa() {
-		conexion = new Conexion();
+		
 	}
 	
 	public Mesa dameMesa(int idMesa) throws NotEncontroException {
@@ -81,6 +84,11 @@ public class ServicioMesa {
 			e.printStackTrace();
 		}
 		return mesas;
+		
+		
+		//DataBaseHelper<Mesa> helper = new DataBaseHelper<Mesa>();
+		//List<Mesa> lista =  helper.seleccionarRegistros("select * from Mesa", Mesa.class);
+		//return lista;
 	}
 	
 	public boolean cambiarEstadoMesa(int idMesa){

@@ -13,7 +13,13 @@ public class Conexion {
 	private static final String USUARIO = "root";
 	private static final String PASSWORD = "root";
 	
+	private static Conexion instance = Conexion.getInstance();
+	 
 	private Connection conn;
+	
+	private Conexion() {
+		
+	}
 	
 	public Connection dameConnection() {
 		
@@ -22,7 +28,6 @@ public class Conexion {
 			conn = DriverManager.getConnection(URL+"/"+ DBNAME, USUARIO, PASSWORD);
 			if (!conn.isClosed()) {
 				System.out.println("conectado a la base de datos");
-				
 			}	
 			return conn;
 		} catch (ClassNotFoundException e) {
@@ -36,4 +41,10 @@ public class Conexion {
 		return null;
 	}
 	
+	 public static Conexion getInstance() {
+	       if (instance == null) {
+	    	   instance = new Conexion();
+	       }
+	       return instance;
+	   }
 }

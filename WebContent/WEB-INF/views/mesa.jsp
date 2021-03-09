@@ -14,37 +14,28 @@
  <%Mesa mesa =(Mesa)request.getAttribute("mesaInfo"); %>  
  <%int cantidadComensales = (Integer) request.getAttribute("cantidadComensales"); %>  
 
-<% for(int i = 1 ; i <= cantidadComensales; i++){ %>
-		<h3>
-		comensal:<%=i%>
-		</h3>
-		<table border ="1" width="500" align="center" > 
+<table border ="1" width="500" align="center" > 
         <tr bgcolor="00FF7F"> 
          <th><b>Nombre de menu</b></th> 
 		 <th><b>Plato principal</b></th> 
          <th><b>Postre</b></th> 
          <th><b>Bebida</b></th>
          <th><b>Precio</b></th>
-         <th><b>cantidad</b></th>
+         <th><b>confirmar</b></th>
         </tr> 
-
-<%ArrayList<Menu> menus = (ArrayList<Menu>)request.getAttribute("menus"); 
-       for(Menu menu :menus){ %> 
-		<tr>
-		<input type="hidden" name="id" value = "<%=menu.getId()%>">
+      <%ArrayList<Menu> menus= null; %>
+      <% menus= (ArrayList<Menu>)request.getAttribute("menus"); 
+       for(Menu menu :menus){ %>
+ 		<tr>
 		<td><%=menu.getTitulo()%></td>
 		<td><%=menu.getPlato()%></td>
 		<td><%=menu.getPostre()%></td>
 		<td><%=menu.getBebida()%></td>
 		<td><%=menu.getPrecio()%></td>
-		<td><input type="text" nameo="cantidad" value="">   </td>
-		<tr>
-		<input type="submit" value="Solicitar pedido">
-
-<%} %>
+		<td> <a href="${pageContext.request.contextPath}/carrito?idMesa=<%=mesa.getNumeroMesa()%>&comensal=<%=cantidadComensales%>&idMenu=<%=menu.getId()%>"> Agregar</a></td>
+		</tr>
+		<%} %>
 </table>
-<%}%>
-
 
 </body>
 </html>
