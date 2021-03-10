@@ -1,62 +1,71 @@
 package com.restobar.servicio;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.restobar.dominio.Menu;
-import com.restobar.dominio.Mesa;
+import com.restobar.dominio.conexion.Conexion;
 import com.restobar.excepciones.NotEncontroException;
 
 public class ServicioMenu {
 
 	private List<Menu> menus = new ArrayList<>();
 	
-	static {
-		
-	}
+	private Conexion conexion  = Conexion.getInstance(); 
 	
 	public ServicioMenu() {
-		Menu menu = new Menu();
-		menu.setTitulo("Menu ejecutivo");
-		menu.setPlato("tallarines con tuco");
-		menu.setPostre("gelatina");
-		menu.setBebida("cerveza tirada");
-		menu.setPrecio(200);
-		menu.setId(1);
-		menus.add(menu);
-		
-		Menu menu2 = new Menu();
-		menu2.setTitulo("Menu clasico");
-		menu2.setPlato("sopa mani");
-		menu2.setPostre("helado de canela");
-		menu2.setBebida("chicha");
-		menu2.setPrecio(100);
-		menu2.setId(2);
-		menus.add(menu2);
-		
+	
 	}
 	
-	
-	
 	public Menu dameMenu(int idMenu) throws NotEncontroException {
-		boolean encontro= false;
-		
-		for (Menu menu : menus) {
-			if (idMenu == menu.getId()) {
-				System.out.println(menu.toString());
-				encontro = true;
-				return menu;
+		Connection con =conexion.dameConnection();
+		Menu menu = null ;
+		try {
+			PreparedStatement stmt = con.prepareStatement("Select Id, Titulo, Precio, Plato, Postre, Bebida from Menu where Id = "+idMenu);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {	
+				menu = new Menu();
+				menu.setId(Integer.parseInt(rs.getString("Id")));
+				menu.setTitulo(rs.getString("Titulo"));
+				menu.setPrecio(Integer.parseInt(rs.getNString("Precio")));
+				menu.setPlato( rs.getString("Plato") );
+				menu.setPostre(rs.getString("Postre"));
+				menu.setBebida(rs.getString("Bebida"));
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if (encontro == false) {
-			throw new NotEncontroException("No se encontro el menu solicitado");
-		}
-		
-		return null ;
+
+		return menu ;
 	}
 	
 	
 	public List<Menu> dameTodos(){
+		menus.clear();
+		Connection con =conexion.dameConnection();
+		try {
+			PreparedStatement stmt = con.prepareStatement("Select Id, Titulo, Precio, Plato, Postre, Bebida from Menu");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Menu menu = new Menu();
+				menu.setId(Integer.parseInt(rs.getString("Id")));
+				menu.setTitulo(rs.getString("Titulo"));
+				menu.setPrecio(Integer.parseInt(rs.getString("Precio")));
+				menu.setPlato( rs.getString("Plato") );
+				menu.setPostre(rs.getString("Postre"));
+				menu.setBebida(rs.getString("Bebida"));
+				menus.add(menu);
+			}
+			con.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return menus;
 	}
 }

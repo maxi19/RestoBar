@@ -1,5 +1,4 @@
 package com.restobar.dominio;
-
 import java.util.List;
 
 public class Mesa {
@@ -14,6 +13,7 @@ public class Mesa {
 	
 	private int cantidadComensales;
 
+	
 	private List<Menu> menus ;
 	
 	public Mesa() {

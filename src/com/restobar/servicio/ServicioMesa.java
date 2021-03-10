@@ -4,21 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.restobar.dominio.Mesa;
 import com.restobar.dominio.conexion.Conexion;
-import com.restobar.dominio.conexion.DataBaseHelper;
 import com.restobar.excepciones.NotEncontroException;
 
-import sun.awt.image.DataBufferNative;
 
 public class ServicioMesa {
 
 	private List<Mesa> mesas = new ArrayList<>();
 	private Conexion conexion  = Conexion.getInstance(); 
-	
+	private Statement stmt;
 	public ServicioMesa() {
 		
 	}
@@ -26,7 +25,7 @@ public class ServicioMesa {
 	public Mesa dameMesa(int idMesa) throws NotEncontroException {
 		boolean encontroMesa= false;
 		Connection con =conexion.dameConnection();
-		java.sql.Statement stmt;
+	
 		String query = "SELECT * FROM Mesa where Numero = " + String.valueOf(idMesa);
 		Mesa mesa = null;
 		try {

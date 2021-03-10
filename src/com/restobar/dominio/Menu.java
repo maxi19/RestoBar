@@ -2,12 +2,19 @@ package com.restobar.dominio;
 
 public class Menu {
 
+	private int id;
+
 	private String titulo;
 	
 	private int precio;
 	
 	private String plato;
 	
+	private String postre;
+	
+	private String bebida;
+	
+
 	public String getPlato() {
 		return plato;
 	}
@@ -16,11 +23,6 @@ public class Menu {
 		this.plato = plato;
 	}
 
-	private String postre;
-	
-	private String bebida;
-
-	private int id;
 	
 	public int getId() {
 		return id;
@@ -62,11 +64,4 @@ public class Menu {
 		this.bebida = bebida;
 	}
 
-	@Override
-	public String toString() {
-		return "Menu [titulo=" + titulo + ", precio=" + precio + ", postre=" + postre + ", bebida=" + bebida + "]";
-	}
-	
-	
-	
 }
