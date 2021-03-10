@@ -14,7 +14,7 @@
 int cantidad = 10;
 
 %>
-
+<h1>Restaurante La comilona</h1>
 
 <table border ="1" width="500" align="center" > 
          <tr bgcolor="00FF7F"> 
@@ -30,7 +30,11 @@ int cantidad = 10;
  		
  		<tr>
  		<td><%=mesa.getNombre()%></td>
-		<td><%=mesa.getEstado()%></td>
+		<% if(mesa.getEstado()){
+			%><td>Disponible</td><% 
+		} else{
+			%> <td>Ocupado</td> <%
+		} %>
 		<td><%=mesa.getDescripcion()%></td>
 		<td><%=mesa.getCantidadComensales()%></td>
 		<td><a href="${pageContext.request.contextPath}/reserva?idMesa=<%=mesa.getNumeroMesa()%>">reservar</a></td>
