@@ -1,6 +1,6 @@
 package com.restobar.dominio;
 
-public class Menu {
+public class Menu implements Consumible {
 
 	private int id;
 
@@ -64,4 +64,17 @@ public class Menu {
 		this.bebida = bebida;
 	}
 
+	@Override
+	public Pedido obtenerPedido() {
+		
+		Pedido pedido = new Pedido();
+		pedido.setId(this.getId());
+		pedido.setNombre(getTitulo());
+		pedido.setImporte(getPrecio());
+		return pedido;
+	}
+
+
+
+	
 }

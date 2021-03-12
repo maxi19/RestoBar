@@ -16,11 +16,13 @@ import com.restobar.servicio.ServicioMesa;
 
 
 @WebServlet(urlPatterns = { "/home"})
-public class HomeServlet extends HttpServlet {
+public class MesasServlet extends HttpServlet {
 
 	private ServicioMesa servicioMesa = new ServicioMesa();
 	
+	private static final String INIT_PATH="/WEB-INF/views/";
 	
+	private static final String MESAS_PAGE ="mesas-disponibles-page.jsp";
 	/**
 	 * 
 	 */
@@ -28,7 +30,7 @@ public class HomeServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp");
+		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(INIT_PATH + MESAS_PAGE);
 		  req.setAttribute("mesas", servicioMesa.dameTodos());
 		  dispatcher.forward(req, resp);
 	}

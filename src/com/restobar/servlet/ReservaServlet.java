@@ -11,13 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.restobar.dominio.Mesa;
+import com.restobar.dominio.helper.GeneradorID;
 import com.restobar.excepciones.NotEncontroException;
+import com.restobar.servicio.ServicioMenu;
 import com.restobar.servicio.ServicioMesa;
 
 @WebServlet(urlPatterns = { "/reserva"})
 public class ReservaServlet extends HttpServlet {
 
 	private ServicioMesa servicioMesa = new ServicioMesa();
+	
+	private GeneradorID generadorId = new GeneradorID();
+	
+	private ServicioMenu servicioMenu = new ServicioMenu();
+	
+private static final String INIT_PATH="/WEB-INF/views/";
+	
+	private static final String MESAS_PAGE ="mesas-disponibles-page.jsp";
+	/**
+	
 	
 	/**
 	 * 
@@ -27,32 +39,33 @@ public class ReservaServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	Mesa mesa = null;
-		 RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/cantidad.jsp");
+		 RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/cartilla-servicio-page.jsp");
 		 HttpSession misession= req.getSession(true);		
 		 
-		 if (req.getParameter("idMesa")!= null) {	
+
 			 int numeroMesa = 0;
 		
 			try {
-				numeroMesa = Integer.parseInt(req.getParameter("idMesa"));		
-				mesa = servicioMesa.dameMesa(numeroMesa);
-				req.setAttribute("mesa", mesa);
-
+				
+				if (req.getParameter("idMesa") != null) {
+					numeroMesa = Integer.parseInt(req.getParameter("idMesa"));		
+					mesa = servicioMesa.dameMesa(numeroMesa);					
+				}
+				
+				String idDePedido = generadorId.generarIdPedido(mesa, "1"); 
+				
+				req.setAttribute("mesaInfo", mesa);
+				req.setAttribute("idPedido", idDePedido);
+				req.setAttribute("idMesa", req.getParameter("idMesa"));
+				req.setAttribute("menus", servicioMenu.dameTodos());
 				misession.setAttribute("miMesaElegida", mesa);
 				
-			} catch (NotEncontroException e) {
-				dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/error.jsp");
-				req.setAttribute("titulo", "ERROR DE SISTEMA");
-				req.setAttribute("mensaje", e.getMessage());
-				dispatcher.forward(req, resp);
-			}catch (NumberFormatException e1) {
-				dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/error.jsp");
-				req.setAttribute("titulo", "ERROR DE SISTEMA");
-				req.setAttribute("mensaje", "Error de sistema interno. intente mas tarde");
-				dispatcher.forward(req, resp);
+			} catch (Exception e) {
+				// TODO: handle exception
+			
 			}
 				 dispatcher.forward(req, resp);	
-		}
+	
 
 	}
 	

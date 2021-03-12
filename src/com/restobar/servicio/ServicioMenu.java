@@ -31,7 +31,7 @@ public class ServicioMenu {
 				menu = new Menu();
 				menu.setId(Integer.parseInt(rs.getString("Id")));
 				menu.setTitulo(rs.getString("Titulo"));
-				menu.setPrecio(Integer.parseInt(rs.getNString("Precio")));
+				menu.setPrecio(Integer.parseInt(rs.getString("Precio")));
 				menu.setPlato( rs.getString("Plato") );
 				menu.setPostre(rs.getString("Postre"));
 				menu.setBebida(rs.getString("Bebida"));

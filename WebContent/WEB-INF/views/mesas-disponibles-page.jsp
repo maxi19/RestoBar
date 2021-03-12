@@ -10,10 +10,7 @@
 </head>
 <body>
 
-<%
-int cantidad = 10;
 
-%>
 <h1>Restaurante La comilona</h1>
 
 <table border ="1" width="500" align="center" > 
